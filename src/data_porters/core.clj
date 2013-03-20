@@ -10,7 +10,7 @@
   (let [thread1 (Thread. #(ext-mysql))
         thread2 (Thread. #(write-data))]
     (.start thread1)
-    (Thread/sleep 3000)
-   (.start thread2)
+;    (Thread/sleep 3000)
+;   (.start thread2)
   )
   (println "Bye, World!"))

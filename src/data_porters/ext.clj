@@ -1,5 +1,6 @@
 (ns data-porters.ext
   (:require [clojure.java.jdbc :as sql]))
+;  (import 'java.util.concurrent.atomic.AtomicInteger)
 
 (def ^:dynamic rows (atom []))
 
@@ -19,10 +20,15 @@
 ;      {:name "Orange" :appearance "round" :cost 49}))
 
   (sql/with-connection mysql-db
+    (def lines-count 0)
     (sql/with-query-results rs
-      ["SELECT * FROM t1 limit 2000000;"]
+      ["SELECT * FROM t1 limit 20000000;"]
       (doseq [row rs]
-        (reset! rows (into [row] @rows)))
+        (def lines-count (inc lines-count))
+        (if (== (mod lines-count 10000) 0)
+          (println lines-count)
+        )
+      )
     )
   )
 )
@@ -35,12 +41,13 @@
   (def lines (atom 0))
   (while (< (count @rows) 1000000)
     (if (and (== (mod (count @rows) 10000) 0) (> (count @rows) @lines))
-      (reset! lines (atom (count @rows)))
-      (println @lines)
+      ((reset! lines (count @rows))
+      (println @lines))
     )
   )
 ;  (def lines-count 0)
 ;  (doseq [row rows]
 ;    (def lines-count (+ 1 lines-count)))
 ;  (println lines-count)
+  (println "bye write")
 )
