@@ -1,1 +1,1 @@
-([:dependencies ([org.clojure/clojure "1.4.0"] [org.clojure/java.jdbc "0.2.3"] [mysql/mysql-connector-java "5.1.6"])])
+([:dependencies ([org.clojure/clojure "1.5.1"] [org.clojure/java.jdbc "0.2.3"] [mysql/mysql-connector-java "5.1.6"] [com.microsoft/sqljdbc4 "3.0"])])

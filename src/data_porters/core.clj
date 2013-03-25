@@ -1,6 +1,6 @@
 (ns data-porters.core
   (:gen-class)
-  (:use [data-porters.ext])
+  (:use [data-porters.reader, data-porter.writer])
   )
 
 (defn -main
